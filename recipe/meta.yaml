@@ -16,12 +16,16 @@ requirements:
   host:
     - python
     - pip
+    - setuptools_scm >=3.4.1
+    # setuptools_scm[toml]
+    - toml
   run:
     - python
     - pathlib2  # [py27]
     - typing  # [py<35]
     - zipp >=0.4  # [py<38]
     - singledispatch  # [py<34]
+    - importlib_metadata  # [py<38]
 
 test:
   requires:
