@@ -5,23 +5,23 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/i/importlib_resources/importlib_resources-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/i/importlib_resources/importlib_resources-{{ version }}.tar.gz
   sha256: 980862a1d16c9e147a59603677fa2aa5fd82b87f223b6cb870695bcfce830065
 
 build:
-  number: 0
+  number: 1
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
 
 requirements:
   host:
-    - python >=3.8
+    - python {{ python_min }}
     - pip
     - setuptools_scm >=3.4.1
     # setuptools_scm[toml]
     - toml
   run:
-    - python >=3.8
+    - python >={{ python_min }}
     - zipp >=3.1.0
   run_constrained:
     - {{ pin_subpackage("importlib-resources", max_pin="x.x.x") }}
@@ -29,6 +29,7 @@ requirements:
 test:
   requires:
     - pip
+    - python {{ python_min }}
   commands:
     - pip check
   imports:
@@ -41,13 +42,14 @@ outputs:
       noarch: python
     requirements:
       host:
-        - python >=3.8
+        - python {{ python_min }}
       run:
         - {{ pin_subpackage("importlib_resources", max_pin="x.x.x") }}
-        - python >=3.8
+        - python >={{ python_min }}
     test:
       requires:
         - pip
+        - python {{ python_min }}
       commands:
         - pip check
       imports:
